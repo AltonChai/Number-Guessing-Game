@@ -6,7 +6,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.amber,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Text("data"),
+          ],
+        ),
+      ),
     );
   }
 }
