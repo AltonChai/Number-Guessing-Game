@@ -1,0 +1,4 @@
+#Fri Jul 19 16:23:00 MYT 2024
+base.0=D\:\\Github\\Ping\\Number-Guessing-Game\\numberguessinggame\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
