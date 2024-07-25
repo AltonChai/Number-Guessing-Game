@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomwPage extends StatefulWidget {
+  const HomwPage({super.key});
+
+  @override
+  State<HomwPage> createState() => _HomwPageState();
+}
+
+class _HomwPageState extends State<HomwPage> {
+  //create list to store number
+  List<int?> alreadypresspunyanumber = [null, null, null, null];
+  void pressedNumber(int index, int number) {
+    setState(
+      () {
+        alreadypresspunyanumber[index] = number;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,51 +26,83 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Title",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            Row(
-              //the top 4 circle
-
-              children: List.generate(
-                4,
-                (index) => Container(
-                  margin: EdgeInsets.only(right: 10),
-                  width: 15,
-                  height: 15,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                      border: Border.all(color: Colors.white)),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Center(
+                child: Text(
+                  "Guess",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-            Expanded(
-              //what is this
-              child: GridView.count(
-                crossAxisCount: 3,
-                mainAxisSpacing: 50,
-                crossAxisSpacing: 50,
+            Padding(
+              padding: const EdgeInsets.only(left: 92, bottom: 25),
+              child: Row(
+                // the top 4 circles
                 children: List.generate(
-                  10,
-                  (index) => CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Text(
-                      index < 9 ? '${index + 1}' : '0',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
+                  4,
+                  (index) => Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black,
+                      border: Border.all(color: Colors.white),
+                    ),
+                    child: Center(
+                      child: Text(
+                        alreadypresspunyanumber[index]?.toString() ?? '',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            )
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 20,
+                  children: List.generate(
+                    10,
+                    (index) => GestureDetector(
+                      onTap: () {
+                        print("Button ${index < 9 ? index + 1 : 0} pressed");
+
+                        for (int i = 0; i < 4; i++) {
+                          if (alreadypresspunyanumber[i] == null) {
+                            pressedNumber(i, index < 9 ? index + 1 : 0);
+                            break;
+                          }
+                        }
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Text(
+                          index < 9 ? '${index + 1}' : '0',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
