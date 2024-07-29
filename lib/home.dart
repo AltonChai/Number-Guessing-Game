@@ -8,14 +8,48 @@ class HomwPage extends StatefulWidget {
 }
 
 class _HomwPageState extends State<HomwPage> {
+  //set answer
+  String answer = "0000";
   //create list to store number
   List<int?> alreadypresspunyanumber = [null, null, null, null];
   void pressedNumber(int index, int number) {
     setState(
       () {
         alreadypresspunyanumber[index] = number;
+        checkanswer();
       },
     );
+  }
+
+  void checkanswer() {
+    //wtf is this lmao pls explain
+    String inputnumber = alreadypresspunyanumber
+        .map((e) => e != null ? e.toString() : '0')
+        .join('');
+    if (inputnumber.length == 4 && inputnumber != answer) {
+      //delay one second and clear the number
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          setState(
+            () {
+              alreadypresspunyanumber = [null, null, null, null];
+            },
+          );
+        },
+      );
+    } else if (inputnumber.length == 4 && inputnumber == answer) {
+      Future.delayed(
+        const Duration(seconds: 1),
+        () {
+          setState(
+            () {
+              alreadypresspunyanumber = [null, null, null, null];
+            },
+          );
+        },
+      );
+    }
   }
 
   @override
